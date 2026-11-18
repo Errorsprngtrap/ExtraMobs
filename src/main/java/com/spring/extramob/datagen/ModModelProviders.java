@@ -1,0 +1,58 @@
+package com.spring.extramob.datagen;
+
+import com.spring.extramob.TemplateMod;
+import com.spring.extramob.armormaterial.ModArmorMaterials;
+import com.spring.extramob.block.ModBlocks;
+import com.spring.extramob.item.ModItems;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.ModelProvider;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.data.PackOutput;
+
+public class ModModelProviders extends ModelProvider {
+
+    public ModModelProviders(PackOutput output) {
+        super(output, TemplateMod.MOD_ID);
+    }
+
+    @Override
+    protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+        //items
+        itemModels.generateFlatItem(ModItems.TEST_ITEM.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.TEST_ITEM_TWO.get(), ModelTemplates.FLAT_ITEM);
+
+        itemModels.generateFlatItem(ModItems.TEST_SWORD.get(),ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(ModItems.TEST_PICKAXE.get(),ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(ModItems.TEST_SHOVEL.get(),ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(ModItems.TEST_HOE.get(),ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(ModItems.TEST_AXE.get(),ModelTemplates.FLAT_HANDHELD_ITEM);
+
+        itemModels.generateSpear(ModItems.TEST_SPEAR.get());
+
+//        itemModels.generateFlatItem(ModItems.TEST_HELMET.get(), ModelTemplates.FLAT_ITEM);
+//        itemModels.generateFlatItem(ModItems.TEST_CHESTPLATE.get(), ModelTemplates.FLAT_ITEM);
+//        itemModels.generateFlatItem(ModItems.TEST_BOOTS.get(), ModelTemplates.FLAT_ITEM);
+//        itemModels.generateFlatItem(ModItems.TEST_LEGGINGS.get(), ModelTemplates.FLAT_ITEM);
+
+        itemModels.generateTrimmableItem(ModItems.TEST_HELMET.get(), ModArmorMaterials.TEST_KEY,ItemModelGenerators.TRIM_PREFIX_HELMET,false);
+        itemModels.generateTrimmableItem(ModItems.TEST_CHESTPLATE.get(), ModArmorMaterials.TEST_KEY,ItemModelGenerators.TRIM_PREFIX_CHESTPLATE,false);
+        itemModels.generateTrimmableItem(ModItems.TEST_LEGGINGS.get(), ModArmorMaterials.TEST_KEY,ItemModelGenerators.TRIM_PREFIX_LEGGINGS,false);
+        itemModels.generateTrimmableItem(ModItems.TEST_BOOTS.get(), ModArmorMaterials.TEST_KEY,ItemModelGenerators.TRIM_PREFIX_BOOTS,false);
+
+        itemModels.generateFlatItem(ModItems.TEST_HORSE_ARMOR.get(), ModelTemplates.FLAT_ITEM);
+
+        itemModels.generateFlatItem(ModItems.CUBEMOB_SPAWN_EGG.get(),ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.PUFFBALL_SPAWN_EGG.get(),ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.WARTURTLE_SPAWN_EGG.get(),ModelTemplates.FLAT_ITEM);
+
+        itemModels.generateFlatItem(ModItems.GIRAFFE_SPAWN_EGG.get(),ModelTemplates.FLAT_ITEM);
+
+
+        itemModels.generateFlatItem(ModItems.WARTURTLE_ARMOR.get(),ModelTemplates.FLAT_ITEM);
+
+        itemModels.declareCustomModelItem(ModItems.ROCK.get());
+        //blocks
+        blockModels.createTrivialCube(ModBlocks.TEST_BLOCK.get());
+    }
+}

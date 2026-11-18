@@ -1,0 +1,17 @@
+# Main Class
+net.neoforged.fml.startup.DataClient
+
+# NeoForge Run-Type Program Arguments
+--assetIndex
+30
+--assetsDir
+C:\\Users\\Utilisateur\\.gradle\\caches\\neoformruntime\\assets
+
+# User Supplied Program Arguments
+--mod
+templatemod
+--all
+--output
+"J:\\Code\\minecraft modding\\26.X\\ExtraMobs\\src\\generated\\resources"
+--existing
+"J:\\Code\\minecraft modding\\26.X\\ExtraMobs\\src\\main\\resources"

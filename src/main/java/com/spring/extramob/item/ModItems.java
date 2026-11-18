@@ -1,0 +1,118 @@
+package com.spring.extramob.item;
+
+import com.spring.extramob.TemplateMod;
+import com.spring.extramob.armormaterial.ModArmorMaterials;
+import com.spring.extramob.entity.ModEntities;
+import com.spring.extramob.item.Custom.RockItem;
+import com.spring.extramob.item.Custom.TestItemComponent;
+import com.spring.extramob.item.Custom.WarTurtleArmor;
+import com.spring.extramob.toolmaterial.ModToolMaterial;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.Locale;
+
+public class ModItems {
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(TemplateMod.MOD_ID);
+
+    public static final DeferredItem<Item> TEST_ITEM = ITEMS.registerSimpleItem(
+            "test_item",
+            properties ->  properties
+    );
+
+    public static final DeferredItem<Item> TEST_ITEM_TWO = ITEMS.registerItem(
+            "test_item2",
+            properties ->  new TestItemComponent(properties)
+    );
+
+    public static final DeferredItem<Item> TEST_SWORD = ITEMS.registerSimpleItem(
+            "test_sword",
+            properties ->  properties.sword(ModToolMaterial.TestMaterial,2,2)
+    );
+    public static final DeferredItem<Item> TEST_PICKAXE = ITEMS.registerItem(
+            "test_pickaxe",
+            properties -> new Item(properties.pickaxe(ModToolMaterial.TestMaterial,1,2))
+    );
+    public static final DeferredItem<Item> TEST_SHOVEL = ITEMS.registerItem(
+            "test_shovel",
+            properties -> new ShovelItem(ModToolMaterial.TestMaterial,1,-2,properties)
+    );
+    public static final DeferredItem<Item> TEST_AXE = ITEMS.registerItem(
+            "test_axe",
+            properties -> new AxeItem(ModToolMaterial.TestMaterial,1,-2,properties)
+    );
+
+    public static final DeferredItem<Item> TEST_HOE = ITEMS.registerItem(
+            "test_hoe",
+            properties -> new HoeItem(ModToolMaterial.TestMaterial,1,-2,properties)
+    );
+
+    public static final DeferredItem<Item> TEST_SPEAR = ITEMS.registerItem(
+            "test_spear",
+            properties -> new Item(properties.spear(ModToolMaterial.TestMaterial,1,2
+            ,1,1,1,1,1,1,1)
+            )
+    );
+
+    public static final DeferredItem<Item> TEST_BOOTS = ITEMS.registerItem(
+            "test_boots",
+            properties -> new Item(properties.humanoidArmor(ModArmorMaterials.TEST_ARMOR_MATERIAL, ArmorType.BOOTS))
+    );
+
+    public static final DeferredItem<Item> TEST_HELMET = ITEMS.registerItem(
+            "test_helmet",
+            properties -> new Item(properties.humanoidArmor(ModArmorMaterials.TEST_ARMOR_MATERIAL, ArmorType.HELMET))
+    );
+
+    public static final DeferredItem<Item> TEST_LEGGINGS = ITEMS.registerItem(
+            "test_leggings",
+            properties -> new Item(properties.humanoidArmor(ModArmorMaterials.TEST_ARMOR_MATERIAL, ArmorType.LEGGINGS))
+    );
+
+    public static final DeferredItem<Item> TEST_CHESTPLATE = ITEMS.registerItem(
+            "test_chestplate",
+            properties -> new Item(properties.humanoidArmor(ModArmorMaterials.TEST_ARMOR_MATERIAL, ArmorType.CHESTPLATE))
+    );
+
+    public static final DeferredItem<Item> TEST_HORSE_ARMOR = ITEMS.registerItem(
+            "test_horse_armor",
+            properties -> new Item(properties.horseArmor(ModArmorMaterials.TEST_ARMOR_MATERIAL))
+    );
+
+    public static final DeferredItem<Item> CUBEMOB_SPAWN_EGG = ITEMS.registerItem(
+            "cuibemob_spawn_egg".toLowerCase(Locale.ROOT),
+            properties -> new SpawnEggItem(properties.spawnEgg(ModEntities.CUBEMOB.get()))
+    );
+
+    public static final DeferredItem<Item> PUFFBALL_SPAWN_EGG = ITEMS.registerItem(
+            "puffball_spawn_egg".toLowerCase(Locale.ROOT),
+            properties -> new SpawnEggItem(properties.spawnEgg(ModEntities.PUFFBALL.get()))
+    );
+
+    public static final DeferredItem<Item> WARTURTLE_SPAWN_EGG = ITEMS.registerItem(
+            "war_turtle_spawn_egg".toLowerCase(Locale.ROOT),
+            properties -> new SpawnEggItem(properties.spawnEgg(ModEntities.WAR_TURTLE.get()))
+    );
+
+    public static final DeferredItem<Item> WARTURTLE_ARMOR = ITEMS.registerItem(
+            "warturtle_armor",
+            properties -> new WarTurtleArmor(properties.durability(200))
+    );
+
+    public static final DeferredItem<Item> GIRAFFE_SPAWN_EGG = ITEMS.registerItem(
+            "girffe_spawn_egg".toLowerCase(Locale.ROOT),
+            properties -> new SpawnEggItem(properties.spawnEgg(ModEntities.GIRAFFE.get()))
+    );
+
+    public static final DeferredItem<Item> ROCK = ITEMS.registerItem(
+            "rock",
+            properties -> new RockItem(properties.stacksTo(64))
+    );
+
+    public static void register(IEventBus eventBus){
+        ITEMS.register(eventBus);
+    }
+}
