@@ -1,6 +1,6 @@
 package com.spring.extramob.worldgen;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -19,7 +19,7 @@ public class ModPlacedFeatures {
     }
 
     public static ResourceKey<PlacedFeature> registerKey(String name){
-        return ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,name));
+        return ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,name));
     };
 
     private static  void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?,?>> configuration,

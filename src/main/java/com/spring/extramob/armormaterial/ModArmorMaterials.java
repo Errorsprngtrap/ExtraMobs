@@ -1,7 +1,7 @@
 package com.spring.extramob.armormaterial;
 
 import com.google.common.collect.Maps;
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -18,7 +18,7 @@ public class ModArmorMaterials {
             ResourceKey.createRegistryKey(Identifier.withDefaultNamespace("equipment_asset"));
 
     public static final ResourceKey<EquipmentAsset> TEST_KEY = ResourceKey.create(ROOT_ID,
-            Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"test"));
+            Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"test"));
 
     public static final ArmorMaterial TEST_ARMOR_MATERIAL = new ArmorMaterial(
             5, makeDefense(1, 2, 3, 1, 3), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, ItemTags.REPAIRS_LEATHER_ARMOR, TEST_KEY

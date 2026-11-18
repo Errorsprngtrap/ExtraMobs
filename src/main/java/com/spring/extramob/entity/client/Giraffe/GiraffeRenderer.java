@@ -1,7 +1,7 @@
 package com.spring.extramob.entity.client.Giraffe;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.entity.client.ModModelLayerLocations;
 import com.spring.extramob.entity.custom.GiraffeEntity;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -19,7 +19,7 @@ public class GiraffeRenderer extends MobRenderer<GiraffeEntity,GiraffeRenderStat
 
     @Override
     public Identifier getTextureLocation(GiraffeRenderState state) {
-        return Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"textures/entity/giraffe/giraffe.png");    }
+        return Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"textures/entity/giraffe/giraffe.png");    }
 
     @Override
     public void submit(GiraffeRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {

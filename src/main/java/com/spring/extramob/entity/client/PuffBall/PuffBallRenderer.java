@@ -1,7 +1,7 @@
 package com.spring.extramob.entity.client.PuffBall;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.entity.client.ModModelLayerLocations;
 import com.spring.extramob.entity.custom.PuffBallEntity;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -18,7 +18,7 @@ public class PuffBallRenderer extends MobRenderer<PuffBallEntity, PuffBallRender
 
     @Override
     public Identifier getTextureLocation(PuffBallRenderState state) {
-        return Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"textures/entity/puffball/puffball.png");
+        return Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"textures/entity/puffball/puffball.png");
     }
 
     @Override

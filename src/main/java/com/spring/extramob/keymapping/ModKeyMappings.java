@@ -5,7 +5,7 @@ import net.minecraft.client.KeyMapping;
 import net.neoforged.neoforge.common.util.Lazy;
 import org.lwjgl.glfw.GLFW;
 
-import static com.spring.extramob.TemplateModClient.EXAMPLE_CATEGORY;
+import static com.spring.extramob.ExtraMobClient.EXAMPLE_CATEGORY;
 
 public class ModKeyMappings {
     private static final KeyMapping TEST_KEY_MAPPING = new KeyMapping("key.templatemod.test_key",

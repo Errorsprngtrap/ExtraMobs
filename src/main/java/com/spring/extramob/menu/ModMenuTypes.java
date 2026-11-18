@@ -1,6 +1,6 @@
 package com.spring.extramob.menu;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.menu.custom.WarTurtleMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -12,7 +12,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModMenuTypes {
-    public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, TemplateMod.MOD_ID);
+    public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, ExtraMob.MOD_ID);
 
     public static final DeferredHolder<MenuType<?>,MenuType<WarTurtleMenu>> WARTURTLE_MENU =
             registerMenuTypes("warturtle_menu",WarTurtleMenu::create);

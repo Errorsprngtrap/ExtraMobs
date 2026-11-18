@@ -1,6 +1,6 @@
 package com.spring.extramob.entity.custom;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.entity.ModEntities;
 import com.spring.extramob.item.Custom.WarTurtleArmor;
 import com.spring.extramob.menu.custom.WarTurtleMenu;
@@ -299,7 +299,7 @@ public class WarTurtleEntity extends TamableAnimal implements ContainerListener,
         }else if (slot == CHEST_SLOT_3) {
             this.entityData.set(HAS_CHEST_3, chested);
         }else {
-            TemplateMod.LOGGER.error("Cant give chest to slot that doesnt exist");
+            ExtraMob.LOGGER.error("Cant give chest to slot that doesnt exist");
         }
     }
 

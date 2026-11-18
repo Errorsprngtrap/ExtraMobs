@@ -1,7 +1,7 @@
 package com.spring.extramob.entity.client.Giraffe;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.entity.client.ModModelLayerLocations;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -13,7 +13,7 @@ import net.minecraft.resources.Identifier;
 
 public class GiraffeSaddleLayer extends RenderLayer<GiraffeRenderState,GiraffeModel> {
     private final GiraffeSaddleModel saddleModel;
-    private static final Identifier SADDLE_TEXTURE = Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID, "textures/entity/giraffe/giraffe_saddle.png");
+    private static final Identifier SADDLE_TEXTURE = Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID, "textures/entity/giraffe/giraffe_saddle.png");
 
     public GiraffeSaddleLayer(RenderLayerParent<GiraffeRenderState, GiraffeModel> renderer, EntityModelSet modelSet) {
         super(renderer);

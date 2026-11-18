@@ -1,6 +1,6 @@
 package com.spring.extramob.tags;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -17,7 +17,7 @@ public class ModTags {
 
         //that shit create the tags
         private static TagKey<Item> createTag(String name){
-            return ItemTags.create(Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,name));
+            return ItemTags.create(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,name));
         }
     }
 
@@ -29,7 +29,7 @@ public class ModTags {
 
         //that shit create the tags
         private static TagKey<Block> createTag(String name){
-            return BlockTags.create(Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,name));
+            return BlockTags.create(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,name));
         }
     }
 

@@ -2,7 +2,7 @@ package com.spring.extramob.entity.client.CubeMob;
 
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.entity.client.ModModelLayerLocations;
 import com.spring.extramob.entity.custom.CubeMobEntity;
 import com.spring.extramob.entity.variant.CubeMobVariant;
@@ -20,9 +20,9 @@ public class CubeMobRenderer extends MobRenderer<CubeMobEntity,CubeMobRenderStat
     private static final Map<CubeMobVariant,Identifier> TEXTURE_BY_VARIANT =
             Util.make(Maps.newEnumMap(CubeMobVariant.class),map ->{
                 map.put(CubeMobVariant.DEFAULT,
-                Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"textures/entity/cubemob/cubemob.png"));
+                Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"textures/entity/cubemob/cubemob.png"));
                 map.put(CubeMobVariant.RED,
-                        Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"textures/entity/cubemob/red_cubemob.png"));
+                        Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"textures/entity/cubemob/red_cubemob.png"));
             });
     public CubeMobRenderer(EntityRendererProvider.Context context) {
         super(context, new CubeMobModel(context.bakeLayer(ModModelLayerLocations.CUBEMOB)), 0.05f);
@@ -31,7 +31,7 @@ public class CubeMobRenderer extends MobRenderer<CubeMobEntity,CubeMobRenderStat
     @Override
     public Identifier getTextureLocation(CubeMobRenderState state) {
         return TEXTURE_BY_VARIANT.get(state.variant);
-        //return Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"textures/entity/cubemob/cubemob.png");
+        //return Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"textures/entity/cubemob/cubemob.png");
     }
 
     @Override

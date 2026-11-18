@@ -1,6 +1,6 @@
 package com.spring.extramob.attachmenttype;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -8,7 +8,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 public class ModAttachmentType {
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPE =
-            DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, TemplateMod.MOD_ID);
+            DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, ExtraMob.MOD_ID);
 
 //    public static final Supplier<AttachmentType<Integer>> NEG_WATERMELON_PLR_COUNT_WATER = ATTACHMENT_TYPE.register(
 //            "neg_watermelon_plr_count_water",

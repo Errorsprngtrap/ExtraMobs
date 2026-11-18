@@ -1,11 +1,8 @@
 package com.spring.extramob.event;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.entity.ModEntities;
-import com.spring.extramob.entity.custom.CubeMobEntity;
-import com.spring.extramob.entity.custom.GiraffeEntity;
-import com.spring.extramob.entity.custom.PuffBallEntity;
-import com.spring.extramob.entity.custom.WarTurtleEntity;
+import com.spring.extramob.entity.custom.*;
 import com.spring.extramob.item.ModItems;
 import com.spring.extramob.potion.ModPotion;
 import net.minecraft.world.entity.PathfinderMob;
@@ -18,7 +15,7 @@ import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 
-@EventBusSubscriber(modid = TemplateMod.MOD_ID)
+@EventBusSubscriber(modid = ExtraMob.MOD_ID)
 public class ModEvents {
 
     @SubscribeEvent
@@ -28,6 +25,8 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onRegisterAttributes(EntityAttributeCreationEvent event) {
+        event.put(ModEntities.SANGLIER.get(), SanglierEntity.createSanglierAttributes().build());
+
         event.put(ModEntities.CUBEMOB.get(), CubeMobEntity.createCubeMobAttributes().build());
         event.put(ModEntities.PUFFBALL.get(), PuffBallEntity.createPuffBallAttributes().build());
         event.put(ModEntities.WAR_TURTLE.get(), WarTurtleEntity.createWarTurtleAttributes().build());

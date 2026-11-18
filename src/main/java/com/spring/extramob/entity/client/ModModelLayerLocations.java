@@ -1,31 +1,31 @@
 package com.spring.extramob.entity.client;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.Identifier;
 
 public class ModModelLayerLocations {
     public static final ModelLayerLocation SANGLIER =
-            new ModelLayerLocation(Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"sanglier"),"main");
+            new ModelLayerLocation(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"sanglier"),"main");
 
     public static final ModelLayerLocation CUBEMOB =
-            new ModelLayerLocation(Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"cubemob"),"main");
+            new ModelLayerLocation(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"cubemob"),"main");
 
     public static final ModelLayerLocation PUFFBALL =
-            new ModelLayerLocation(Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"puffball"),"main");
+            new ModelLayerLocation(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"puffball"),"main");
 
     public static final ModelLayerLocation WARTURTLE =
-            new ModelLayerLocation(Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"warturtle"),"main");
+            new ModelLayerLocation(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"warturtle"),"main");
 
     public static final ModelLayerLocation WARTURTLE_ARMOR =
-            new ModelLayerLocation(Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"warturtle_armor"),"armor");
+            new ModelLayerLocation(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"warturtle_armor"),"armor");
 
     public static final ModelLayerLocation GIRAFFE =
-            new ModelLayerLocation(Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"giraffe"),"main");
+            new ModelLayerLocation(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"giraffe"),"main");
 
     public static final ModelLayerLocation GIRAFFE_SADDLE =
-            new ModelLayerLocation(Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"giraffe_saddle"),"saddle");
+            new ModelLayerLocation(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"giraffe_saddle"),"saddle");
 
     public static final ModelLayerLocation ROCK =
-            new ModelLayerLocation(Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"rock"),"main");
+            new ModelLayerLocation(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"rock"),"main");
 }

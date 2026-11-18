@@ -11,6 +11,8 @@ import com.spring.extramob.entity.client.PuffBall.PuffBallModel;
 import com.spring.extramob.entity.client.PuffBall.PuffBallRenderer;
 import com.spring.extramob.entity.client.Rock.RockModel;
 import com.spring.extramob.entity.client.Rock.RockRenderer;
+import com.spring.extramob.entity.client.Sanglier.SanglierModel;
+import com.spring.extramob.entity.client.Sanglier.SanglierRenderer;
 import com.spring.extramob.entity.client.WarTurtle.WarTurtleModel;
 import com.spring.extramob.entity.client.WarTurtle.WarTurtleRenderer;
 import com.spring.extramob.keymapping.ModKeyMappings;
@@ -36,11 +38,11 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
-@Mod(value = TemplateMod.MOD_ID, dist = Dist.CLIENT)
+@Mod(value = ExtraMob.MOD_ID, dist = Dist.CLIENT)
 // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-@EventBusSubscriber(modid = TemplateMod.MOD_ID, value = Dist.CLIENT)
-public class TemplateModClient {
-    public TemplateModClient(ModContainer container) {
+@EventBusSubscriber(modid = ExtraMob.MOD_ID, value = Dist.CLIENT)
+public class ExtraMobClient {
+    public ExtraMobClient(ModContainer container) {
         // Allows NeoForge to create a config screen for this mod's configs.
         // The config screen is accessed by going to the Mods screen > clicking on your mod > clicking on config.
         // Do not forget to add translations for your config options to the en_us.json file.
@@ -51,6 +53,8 @@ public class TemplateModClient {
 
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
+        EntityRenderers.register(ModEntities.SANGLIER.get(), SanglierRenderer::new);
+
 
         EntityRenderers.register(ModEntities.CUBEMOB.get(), CubeMobRenderer::new);
         EntityRenderers.register(ModEntities.PUFFBALL.get(), PuffBallRenderer::new);
@@ -62,6 +66,9 @@ public class TemplateModClient {
 
     @SubscribeEvent
     public static void  registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event){
+        event.registerLayerDefinition(ModModelLayerLocations.SANGLIER, SanglierModel::createBodyLayer);
+
+
         event.registerLayerDefinition(ModModelLayerLocations.CUBEMOB, CubeMobModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayerLocations.PUFFBALL, PuffBallModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayerLocations.WARTURTLE, WarTurtleModel::createBodyLayer);
@@ -98,13 +105,13 @@ public class TemplateModClient {
 
     @SubscribeEvent
     public static void registerGUI(RegisterGuiLayersEvent event){
-        event.registerAboveAll(Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"testgui"),(guiGraphics, deltaTracker) -> {
+        event.registerAboveAll(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"testgui"),(guiGraphics, deltaTracker) -> {
             int x = guiGraphics.guiWidth()/2;
             int y = guiGraphics.guiHeight();
 
             if(!Minecraft.getInstance().player.isCreative() && !Minecraft.getInstance().player.isSpectator()){
                 for (int i = 0 ; i < 4; i++){
-                    guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED,Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"testgui"),
+                    guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED,Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"testgui"),
                             16,16,0,0,x - 95 + i * 16,y-55,16,16);
                 }
             }

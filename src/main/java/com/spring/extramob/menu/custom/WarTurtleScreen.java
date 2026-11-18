@@ -1,6 +1,6 @@
 package com.spring.extramob.menu.custom;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.entity.custom.WarTurtleEntity;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -12,13 +12,13 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class WarTurtleScreen extends AbstractContainerScreen<WarTurtleMenu> {
     private static final Identifier GUI_TEXTURE_T0 =
-            Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"textures/entity/warturtle/gui/war_turtle_base.png");
+            Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"textures/entity/warturtle/gui/war_turtle_base.png");
     private static final Identifier GUI_TEXTURE_T1 =
-            Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"textures/entity/warturtle/gui/war_turtle_inv_1.png");
+            Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"textures/entity/warturtle/gui/war_turtle_inv_1.png");
     private static final Identifier GUI_TEXTURE_T2 =
-            Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"textures/entity/warturtle/gui/war_turtle_inv_2.png");
+            Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"textures/entity/warturtle/gui/war_turtle_inv_2.png");
     private static final Identifier GUI_TEXTURE_T3 =
-            Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"textures/entity/warturtle/gui/war_turtle_inv_3.png");
+            Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"textures/entity/warturtle/gui/war_turtle_inv_3.png");
 
     private final WarTurtleEntity warturtle;
 

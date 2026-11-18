@@ -9,7 +9,7 @@ C:\\Users\\Utilisateur\\.gradle\\caches\\neoformruntime\\assets
 
 # User Supplied Program Arguments
 --mod
-templatemod
+extramob
 --all
 --output
 "J:\\Code\\minecraft modding\\26.X\\ExtraMobs\\src\\generated\\resources"

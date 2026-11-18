@@ -1,11 +1,9 @@
 package com.spring.extramob.entity.client.Sanglier;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.entity.client.ModModelLayerLocations;
 import com.spring.extramob.entity.custom.SanglierEntity;
-import net.minecraft.client.model.animal.fish.PufferfishBigModel;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -19,7 +17,7 @@ public class SanglierRenderer extends MobRenderer<SanglierEntity,SanglierRenderS
 
     @Override
     public Identifier getTextureLocation(SanglierRenderState sanglierRenderState) {
-        return Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"textures/entity/sanglier/sanglier.png");
+        return Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"textures/entity/sanglier/sanglier.png");
     }
 
     @Override

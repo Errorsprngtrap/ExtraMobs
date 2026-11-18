@@ -1,7 +1,7 @@
 package com.spring.extramob.entity.client.Rock;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.entity.client.ModModelLayerLocations;
 import com.spring.extramob.entity.custom.RockProjectileEntity;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -47,7 +47,7 @@ public class RockRenderer extends EntityRenderer<RockProjectileEntity, RockRende
     }
 
     public Identifier getTextureLocation() {
-        return Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID, "textures/entity/rock/rock.png");
+        return Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID, "textures/entity/rock/rock.png");
     }
 
 }

@@ -1,6 +1,6 @@
 package com.spring.extramob.creativetab;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.block.ModBlocks;
 import com.spring.extramob.item.ModItems;
 import net.minecraft.core.registries.Registries;
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 
 public class ModCreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
-            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TemplateMod.MOD_ID);
+            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ExtraMob.MOD_ID);
 
 
     public static final Supplier<CreativeModeTab> TEST_TAB = CREATIVE_MODE_TABS.register("test_tab",

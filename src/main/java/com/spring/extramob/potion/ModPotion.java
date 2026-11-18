@@ -1,6 +1,6 @@
 package com.spring.extramob.potion;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.effect.ModEffects;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -11,7 +11,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModPotion {
     public static final DeferredRegister<Potion> POTIONS =
-            DeferredRegister.create(BuiltInRegistries.POTION, TemplateMod.MOD_ID);
+            DeferredRegister.create(BuiltInRegistries.POTION, ExtraMob.MOD_ID);
 
     public static final Holder<Potion> TEST_POTION = POTIONS.register(
             "test_potion",

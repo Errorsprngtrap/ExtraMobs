@@ -1,6 +1,6 @@
 package com.spring.extramob.datagen;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.worldgen.ModBiomeModifiers;
 import com.spring.extramob.worldgen.ModConfiguredFeatures;
 import com.spring.extramob.worldgen.ModPlacedFeatures;
@@ -23,6 +23,6 @@ public class ModDataPackProvider extends DatapackBuiltinEntriesProvider {
             ;
 
     public ModDataPackProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, registries, BUILDER, Set.of(TemplateMod.MOD_ID));
+        super(output, registries, BUILDER, Set.of(ExtraMob.MOD_ID));
     }
 }

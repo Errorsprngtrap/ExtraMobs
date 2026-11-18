@@ -1,6 +1,6 @@
 package com.spring.extramob.datagen;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 public class ModDamageTypes {
 
     public static final ResourceKey<DamageType> TEST_DAMAGE= ResourceKey.create(Registries.DAMAGE_TYPE,
-            Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID, "test_damage"));
+            Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID, "test_damage"));
 
     public static void bootstrap(BootstrapContext<DamageType> context) {
         context.register(TEST_DAMAGE,new DamageType("test damage",1.0f, DamageEffects.HURT));

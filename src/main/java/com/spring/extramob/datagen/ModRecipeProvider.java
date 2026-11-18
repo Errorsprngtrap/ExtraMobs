@@ -1,6 +1,6 @@
 package com.spring.extramob.datagen;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -46,7 +46,7 @@ public class ModRecipeProvider extends RecipeProvider {
             SimpleCookingRecipeBuilder.generic(Ingredient.of(item), craftingCategory, cookingCategory, result, experience, cookingTime, factory)
                     .group(group)
                     .unlockedBy(getHasName(item), this.has(item))
-                    .save(this.output, TemplateMod.MOD_ID + ":" + getItemName(result) + fromDesc + "_" + getItemName(item));
+                    .save(this.output, ExtraMob.MOD_ID + ":" + getItemName(result) + fromDesc + "_" + getItemName(item));
         }
     }
 }

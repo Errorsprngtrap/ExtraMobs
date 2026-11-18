@@ -1,6 +1,6 @@
 package com.spring.extramob.datagen;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
@@ -12,7 +12,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import java.util.Collections;
 import java.util.List;
 
-@EventBusSubscriber(modid = TemplateMod.MOD_ID)
+@EventBusSubscriber(modid = ExtraMob.MOD_ID)
 public class ModDataGenerators {
 
     @SubscribeEvent

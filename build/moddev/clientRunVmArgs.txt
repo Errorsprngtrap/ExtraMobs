@@ -7,5 +7,5 @@ jdk.naming.dns/com.sun.jndi.dns=java.naming
 "-Dlog4j2.configurationFile=J:\\Code\\minecraft modding\\26.X\\ExtraMobs\\build\\moddev\\clientLog4j2.xml"
 -Djava.net.preferIPv6Addresses=system
 -Dneoforge.enableGameTest=true
--Dneoforge.enabledGameTestNamespaces=templatemod
+-Dneoforge.enabledGameTestNamespaces=extramob
 -Dforge.logging.markers=REGISTRIES

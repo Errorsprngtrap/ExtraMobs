@@ -1,6 +1,6 @@
 package com.spring.extramob.datagen;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.armormaterial.ModArmorMaterials;
 import com.spring.extramob.block.ModBlocks;
 import com.spring.extramob.item.ModItems;
@@ -13,7 +13,7 @@ import net.minecraft.data.PackOutput;
 public class ModModelProviders extends ModelProvider {
 
     public ModModelProviders(PackOutput output) {
-        super(output, TemplateMod.MOD_ID);
+        super(output, ExtraMob.MOD_ID);
     }
 
     @Override

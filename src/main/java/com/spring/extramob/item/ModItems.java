@@ -1,6 +1,6 @@
 package com.spring.extramob.item;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.armormaterial.ModArmorMaterials;
 import com.spring.extramob.entity.ModEntities;
 import com.spring.extramob.item.Custom.RockItem;
@@ -16,7 +16,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.Locale;
 
 public class ModItems {
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(TemplateMod.MOD_ID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ExtraMob.MOD_ID);
 
     public static final DeferredItem<Item> TEST_ITEM = ITEMS.registerSimpleItem(
             "test_item",

@@ -1,7 +1,7 @@
 package com.spring.extramob.entity.client.WarTurtle;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.entity.client.ModModelLayerLocations;
 import com.spring.extramob.item.ModItems;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -20,7 +20,7 @@ public class WarTurtleArmorRenderLayer extends RenderLayer<WarTurtleRenderState,
     private final WarTurtleModel model;
 
     private final Map<Item, Identifier> ARMOR_MAP = Map.of(
-            ModItems.WARTURTLE_ARMOR.get(), Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID, "textures/entity/warturtle/armor/warturtle_armor.png")
+            ModItems.WARTURTLE_ARMOR.get(), Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID, "textures/entity/warturtle/armor/warturtle_armor.png")
     );
 
     public WarTurtleArmorRenderLayer(RenderLayerParent<WarTurtleRenderState, WarTurtleModel> renderer, EntityModelSet modelSet) {

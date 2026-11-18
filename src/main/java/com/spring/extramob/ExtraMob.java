@@ -27,15 +27,15 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
-@Mod(TemplateMod.MOD_ID)
-public class TemplateMod {
-    public static final String MOD_ID = "templatemod";
+@Mod(ExtraMob.MOD_ID)
+public class ExtraMob {
+    public static final String MOD_ID = "extramob";
     public static final Logger LOGGER = LogUtils.getLogger();
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
 
-    public TemplateMod(IEventBus modEventBus, ModContainer modContainer) {
+    public ExtraMob(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 

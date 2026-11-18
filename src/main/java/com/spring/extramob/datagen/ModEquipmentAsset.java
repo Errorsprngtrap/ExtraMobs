@@ -1,6 +1,6 @@
 package com.spring.extramob.datagen;
 
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.armormaterial.ModArmorMaterials;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.data.CachedOutput;
@@ -24,9 +24,9 @@ public class ModEquipmentAsset implements DataProvider {
 
     private static void bootstrap(BiConsumer<ResourceKey<EquipmentAsset>, EquipmentClientInfo> output) {
         output.accept(ModArmorMaterials.TEST_KEY, EquipmentClientInfo.builder()
-                .addHumanoidLayers(Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID, "test"), false)
+                .addHumanoidLayers(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID, "test"), false)
                         .addLayers(EquipmentClientInfo.LayerType.HORSE_BODY,
-                                new EquipmentClientInfo.Layer(Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID,"test")))
+                                new EquipmentClientInfo.Layer(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"test")))
                 .build());
     }
 

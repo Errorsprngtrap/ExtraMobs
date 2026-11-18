@@ -1,7 +1,7 @@
 package com.spring.extramob.entity.client.WarTurtle;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.spring.extramob.TemplateMod;
+import com.spring.extramob.ExtraMob;
 import com.spring.extramob.entity.client.ModModelLayerLocations;
 import com.spring.extramob.entity.custom.WarTurtleEntity;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -19,7 +19,7 @@ public class WarTurtleRenderer extends MobRenderer<WarTurtleEntity, WarTurtleRen
 
     @Override
     public Identifier getTextureLocation(WarTurtleRenderState state) {
-        return Identifier.fromNamespaceAndPath(TemplateMod.MOD_ID, "textures/entity/warturtle/warturtle.png");
+        return Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID, "textures/entity/warturtle/warturtle.png");
     }
 
     @Override
