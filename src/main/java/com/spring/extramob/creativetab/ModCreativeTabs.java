@@ -22,6 +22,7 @@ public class ModCreativeTabs {
                     .title(Component.translatable("creativetabs.templatemod.test_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(ModItems.SANGLIER_lEATHER);
+                        output.accept(ModItems.SANGLIER_SPAWN_EG);
 
                         output.accept(ModItems.TEST_ITEM);
                         output.accept(ModItems.TEST_ITEM_TWO);

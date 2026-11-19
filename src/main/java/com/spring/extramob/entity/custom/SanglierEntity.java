@@ -1,5 +1,8 @@
 package com.spring.extramob.entity.custom;
 
+import com.spring.extramob.entity.Goal.BabyDontAttackGoal;
+import com.spring.extramob.entity.Goal.GoalAttackTargetNearBaby;
+import com.spring.extramob.entity.ModEntities;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
@@ -10,6 +13,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -36,9 +40,15 @@ public class SanglierEntity extends Animal implements NeutralMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 2.0, sanglier -> sanglier.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal(this, Monster.class, 6.0F, 1.0D, 1.2D));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(2,new MeleeAttackGoal(this,1.5F,false));
+        this.goalSelector.addGoal(3, new FollowParentGoal(this, 1.25F));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal(this, Monster.class, 6.0F, 1.0D, 1.2D));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(12, new RandomLookAroundGoal(this));
+
+        this.targetSelector.addGoal(1, (new BabyDontAttackGoal(this,2,false)));
+        this.targetSelector.addGoal(2, new GoalAttackTargetNearBaby(this,Player.class,true));
+
     }
 
     public static AttributeSupplier.Builder createSanglierAttributes() {
@@ -46,7 +56,8 @@ public class SanglierEntity extends Animal implements NeutralMob {
                 .add(Attributes.MAX_HEALTH, 25.0F)
                 .add(Attributes.MOVEMENT_SPEED, 0.23F)
                 .add(Attributes.FOLLOW_RANGE, 25.0F)
-                .add(Attributes.ATTACK_DAMAGE, 3.0);
+                .add(Attributes.ATTACK_DAMAGE, 3.0)
+                .add(Attributes.STEP_HEIGHT, 1.0);
     }
 
     @Override
@@ -78,7 +89,7 @@ public class SanglierEntity extends Animal implements NeutralMob {
 
     @Override
     public void setPersistentAngerTarget(@Nullable EntityReference<LivingEntity> entityReference) {
-        this.persistentAngerTarget = persistentAngerTarget;
+        this.persistentAngerTarget = entityReference;
     }
 
     @Override
@@ -94,6 +105,31 @@ public class SanglierEntity extends Animal implements NeutralMob {
 
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return null;
+        return ModEntities.SANGLIER.get().create(serverLevel, EntitySpawnReason.BREEDING);
+
     }
+
+    private class SheakSleepPlace extends FleeSunGoal{
+
+        public SheakSleepPlace(PathfinderMob mob, double speedModifier) {
+            super(mob, speedModifier);
+        }
+
+        @Override
+        public boolean canUse() {
+            if (mob.getTarget() == null) {
+                if (!mob.level().isDarkOutside() && !mob.level().canSeeSky(mob.blockPosition())){
+                    return this.setWantedPos();
+                } else {
+                    return false;
+                }
+            }else {
+                return false;
+            }
+        }
+
+
+    }
+
+
 }

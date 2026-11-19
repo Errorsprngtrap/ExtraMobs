@@ -19,19 +19,20 @@ import java.util.List;
 
 public class ModBiomeModifiers {
     //place resource_key here
-    public static final ResourceKey<BiomeModifier> SPAWN_GIRAFFE = registerKey("spawn_giraffe");
+    public static final ResourceKey<BiomeModifier> SPAWN_SANGLIER = registerKey("spawn_sanglier");
 
     public static void bootstrap(BootstrapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
         var biomes = context.lookup(Registries.BIOME);
 
         //mobs
-        context.register(SPAWN_GIRAFFE, new BiomeModifiers.AddSpawnsBiomeModifier(
+        context.register(SPAWN_SANGLIER, new BiomeModifiers.AddSpawnsBiomeModifier(
                 HolderSet.direct(
-                        biomes.getOrThrow(Biomes.SAVANNA),
-                        biomes.getOrThrow(Biomes.SAVANNA_PLATEAU),
-                        biomes.getOrThrow(Biomes.WINDSWEPT_SAVANNA)),
-                WeightedList.of(List.of(new Weighted<>(new MobSpawnSettings.SpawnerData(ModEntities.GIRAFFE.get(),1,8),5)))
+                        biomes.getOrThrow(Biomes.FOREST),
+                        biomes.getOrThrow(Biomes.BIRCH_FOREST),
+                        biomes.getOrThrow(Biomes.FLOWER_FOREST)),
+                WeightedList.of(List.of(new Weighted<>(new MobSpawnSettings.SpawnerData(ModEntities.SANGLIER.get(),
+                        1,8),5)))
         ));
     }
 

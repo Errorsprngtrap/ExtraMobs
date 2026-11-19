@@ -23,6 +23,11 @@ public class ModItems {
             properties ->  properties
     );
 
+    public static final DeferredItem<Item> SANGLIER_SPAWN_EG = ITEMS.registerItem(
+            "sanglier_spawn_egg",
+            properties ->  new SpawnEggItem(properties.spawnEgg(ModEntities.SANGLIER.get()))
+    );
+
     public static final DeferredItem<Item> TEST_ITEM = ITEMS.registerSimpleItem(
             "test_item",
             properties ->  properties
