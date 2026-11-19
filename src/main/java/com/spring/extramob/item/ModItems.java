@@ -18,6 +18,11 @@ import java.util.Locale;
 public class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ExtraMob.MOD_ID);
 
+    public static final DeferredItem<Item> SANGLIER_lEATHER = ITEMS.registerSimpleItem(
+            "sanglier_leather",
+            properties ->  properties
+    );
+
     public static final DeferredItem<Item> TEST_ITEM = ITEMS.registerSimpleItem(
             "test_item",
             properties ->  properties

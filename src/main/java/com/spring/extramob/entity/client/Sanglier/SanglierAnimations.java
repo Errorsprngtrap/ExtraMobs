@@ -48,7 +48,7 @@ public class SanglierAnimations {
 		))
 		.build();
 
-	public static final AnimationDefinition Walk = AnimationDefinition.Builder.withLength(1.0F)
+	public static final AnimationDefinition Walk = AnimationDefinition.Builder.withLength(1.0F).looping()
 		.addAnimation("Head", new AnimationChannel(AnimationChannel.Targets.ROTATION, 
 			new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
 		))

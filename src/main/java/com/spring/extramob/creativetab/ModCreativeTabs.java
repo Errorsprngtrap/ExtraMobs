@@ -21,6 +21,8 @@ public class ModCreativeTabs {
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.TEST_ITEM.get()))
                     .title(Component.translatable("creativetabs.templatemod.test_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
+                        output.accept(ModItems.SANGLIER_lEATHER);
+
                         output.accept(ModItems.TEST_ITEM);
                         output.accept(ModItems.TEST_ITEM_TWO);
 

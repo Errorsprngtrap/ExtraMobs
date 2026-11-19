@@ -19,6 +19,8 @@ public class ModModelProviders extends ModelProvider {
     @Override
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         //items
+        itemModels.generateFlatItem(ModItems.SANGLIER_lEATHER.get(), ModelTemplates.FLAT_ITEM);
+
         itemModels.generateFlatItem(ModItems.TEST_ITEM.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.TEST_ITEM_TWO.get(), ModelTemplates.FLAT_ITEM);
 
