@@ -30,7 +30,8 @@ public class ModBiomeModifiers {
                 HolderSet.direct(
                         biomes.getOrThrow(Biomes.FOREST),
                         biomes.getOrThrow(Biomes.BIRCH_FOREST),
-                        biomes.getOrThrow(Biomes.FLOWER_FOREST)),
+                        biomes.getOrThrow(Biomes.FLOWER_FOREST),
+                        biomes.getOrThrow(Biomes.JUNGLE)),
                 WeightedList.of(List.of(new Weighted<>(new MobSpawnSettings.SpawnerData(ModEntities.SANGLIER.get(),
                         1,8),5)))
         ));
