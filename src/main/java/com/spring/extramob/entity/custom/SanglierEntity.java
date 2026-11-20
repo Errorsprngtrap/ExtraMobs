@@ -3,10 +3,12 @@ package com.spring.extramob.entity.custom;
 import com.spring.extramob.entity.Goal.BabyDontAttackGoal;
 import com.spring.extramob.entity.Goal.GoalAttackTargetNearBaby;
 import com.spring.extramob.entity.ModEntities;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.*;
@@ -21,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
 public class SanglierEntity extends Animal implements NeutralMob {
@@ -130,6 +133,39 @@ public class SanglierEntity extends Animal implements NeutralMob {
             }
         }
 
+        @Override
+        protected @Nullable Vec3 getHidePos() {
+            RandomSource random = mob.getRandom();
+            BlockPos pos = mob.blockPosition();
+
+            BlockPos best = null;
+            double bestDistSq = Double.MAX_VALUE;
+
+
+            for(int i = 0; i < 10; ++i) {
+                BlockPos randomPos = pos.offset(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
+
+                boolean notSeeSky = !mob.level().canSeeSky(randomPos);
+                boolean standable = mob.level().getBlockState(randomPos).isAir()
+                        && mob.level().getBlockState(randomPos.above()).isAir()
+                        && mob.level().getBlockState(randomPos.below()).isSolid();
+
+                if (notSeeSky && standable) {
+                    double distSq = randomPos.distSqr(pos);
+                    if (distSq < bestDistSq) {
+                        bestDistSq = distSq;
+                        best = randomPos;
+                    }
+                }
+            }
+
+            if (best == null){
+                return null;
+            } else {
+                return Vec3.atBottomCenterOf(best);
+            }
+        }
+
     }
 
     public class SanglierWaterAvoidingRandomStrollGoal extends WaterAvoidingRandomStrollGoal{
@@ -147,6 +183,8 @@ public class SanglierEntity extends Animal implements NeutralMob {
         public boolean canContinueToUse() {
             return !mob.level().isDarkOutside() && super.canContinueToUse();
         }
+
+
     }
 
 
