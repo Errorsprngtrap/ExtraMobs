@@ -21,6 +21,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
@@ -142,30 +143,42 @@ public class SanglierEntity extends Animal implements NeutralMob {
             double bestDistSq = Double.MAX_VALUE;
 
 
-            for(int i = 0; i < 10; ++i) {
-                BlockPos randomPos = pos.offset(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
+            int[] horizontalRadii = {10, 20, 32,40};
+            int[] verticalRadii = {3, 5, 8,10};
 
-                boolean notSeeSky = !mob.level().canSeeSky(randomPos);
-                boolean standable = mob.level().getBlockState(randomPos).isAir()
-                        && mob.level().getBlockState(randomPos.above()).isAir()
-                        && mob.level().getBlockState(randomPos.below()).isSolid();
+            for (int tier = 0; tier < horizontalRadii.length; tier++) {
+                int hRadius = horizontalRadii[tier];
+                int vRadius = verticalRadii[tier];
 
-                if (notSeeSky && standable) {
-                    double distSq = randomPos.distSqr(pos);
-                    if (distSq < bestDistSq) {
-                        bestDistSq = distSq;
-                        best = randomPos;
+                for (int i = 0; i < 10; ++i) {
+                    BlockPos randomPos = pos.offset(random.nextInt(hRadius * 2) - hRadius, random.nextInt(vRadius * 2) - vRadius, random.nextInt(hRadius * 2) - hRadius);
+
+                    boolean notSeeSky = !mob.level().canSeeSky(randomPos);
+                    boolean standable = mob.level().getBlockState(randomPos).isAir()
+                            && mob.level().getBlockState(randomPos.above()).isAir()
+                            && mob.level().getBlockState(randomPos.below()).isSolid();
+                    boolean notSnowTerrain = !mob.level().getBlockState(randomPos.below()).is(Blocks.SNOW)
+                            && !mob.level().getBlockState(randomPos.below()).is(Blocks.POWDER_SNOW)
+                            && !mob.level().getBlockState(randomPos.above()).is(Blocks.SNOW)
+                            && !mob.level().getBlockState(randomPos.above()).is(Blocks.POWDER_SNOW);
+
+                    if (notSeeSky && standable) {
+                        double distSq = randomPos.distSqr(pos);
+                        if (distSq < bestDistSq) {
+                            bestDistSq = distSq;
+                            best = randomPos;
+                        }
                     }
                 }
-            }
 
-            if (best == null){
-                return null;
-            } else {
-                return Vec3.atBottomCenterOf(best);
+                if (best == null) {
+                    return null;
+                } else {
+                    return Vec3.atBottomCenterOf(best);
+                }
             }
+            return null;
         }
-
     }
 
     public class SanglierWaterAvoidingRandomStrollGoal extends WaterAvoidingRandomStrollGoal{
