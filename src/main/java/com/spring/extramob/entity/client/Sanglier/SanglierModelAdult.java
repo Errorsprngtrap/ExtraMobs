@@ -2,13 +2,9 @@ package com.spring.extramob.entity.client.Sanglier;// Made with Blockbench 5.1.6
 // Exported for Minecraft version 1.17 or later with Mojang mappings
 // Paste this class into your mod and generate all required imports
 
-
-import net.minecraft.client.animation.KeyframeAnimation;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 
 public class SanglierModelAdult extends SanglierModel {
 
@@ -59,20 +55,20 @@ public class SanglierModelAdult extends SanglierModel {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-	@Override
-	public void setupAnim(SanglierRenderState state) {
-		this.root.getAllParts().forEach(p -> {resetPose();});
-		this.applyHeadRotation(state.yRot,state.xRot);
-
-		this.walkingAnimation.applyWalk(state.walkAnimationPos,state.walkAnimationSpeed,2f,2.5f);
-		this.idleAnimation.apply(state.idleAnimationState,state.ageInTicks,1);
-	}
-
-	private void applyHeadRotation(float headYaw, float headPitch) {
-		headYaw = Mth.clamp(headYaw, -30f, 30f);
-		headPitch = Mth.clamp(headPitch, -25f, 45);
-
-		this.Head.yRot = headYaw * ((float)Math.PI / 180f);
-		this.Head.xRot = headPitch *  ((float)Math.PI / 180f);
-	}
+//	@Override
+//	public void setupAnim(SanglierRenderState state) {
+//		this.root.getAllParts().forEach(p -> {resetPose();});
+//		this.applyHeadRotation(state.yRot,state.xRot);
+//
+//		this.walkingAnimation.applyWalk(state.walkAnimationPos,state.walkAnimationSpeed,2f,2.5f);
+//		this.idleAnimation.apply(state.idleAnimationState,state.ageInTicks,1);
+//	}
+//
+//	private void applyHeadRotation(float headYaw, float headPitch) {
+//		headYaw = Mth.clamp(headYaw, -30f, 30f);
+//		headPitch = Mth.clamp(headPitch, -25f, 45);
+//
+//		this.Head.yRot = headYaw * ((float)Math.PI / 180f);
+//		this.Head.xRot = headPitch *  ((float)Math.PI / 180f);
+//	}
 }
