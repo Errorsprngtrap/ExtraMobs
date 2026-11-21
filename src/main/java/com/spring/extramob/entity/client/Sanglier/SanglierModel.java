@@ -13,19 +13,19 @@ import net.minecraft.util.Mth;
 
 public class SanglierModel extends EntityModel<SanglierRenderState> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	private final ModelPart Sanglier;
-	private final ModelPart upper_body_group;
-	private final ModelPart Head;
-	private final ModelPart earsR;
-	private final ModelPart earsL;
-	private final ModelPart Butt;
-	private final ModelPart lower_body_group;
-	private final ModelPart l_leg;
-	private final ModelPart l_leg2;
-	private final ModelPart r_leg;
-	private final ModelPart r_leg2;
-	private final KeyframeAnimation walkingAnimation;
-	private final KeyframeAnimation idleAnimation;
+	protected  final ModelPart Sanglier;
+	protected  final ModelPart upper_body_group;
+	protected  final ModelPart Head;
+	protected  final ModelPart earsR;
+	protected  final ModelPart earsL;
+	protected  final ModelPart Butt;
+	protected  final ModelPart lower_body_group;
+	protected  final ModelPart l_leg;
+	protected  final ModelPart l_leg2;
+	protected  final ModelPart r_leg;
+	protected  final ModelPart r_leg2;
+	protected  final KeyframeAnimation walkingAnimation;
+	protected  final KeyframeAnimation idleAnimation;
 
 	public SanglierModel(ModelPart root) {
 		super(root);

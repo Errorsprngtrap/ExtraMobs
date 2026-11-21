@@ -10,42 +10,15 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
-public class SanglierModelAdult extends EntityModel<SanglierRenderState> {
-	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	private final ModelPart Sanglier;
-	private final ModelPart upper_body_group;
-	private final ModelPart Head;
+public class SanglierModelAdult extends SanglierModel {
+
 	private final ModelPart HornR;
 	private final ModelPart HornL;
-	private final ModelPart earsR;
-	private final ModelPart earsL;
-	private final ModelPart Butt;
-	private final ModelPart lower_body_group;
-	private final ModelPart l_leg;
-	private final ModelPart l_leg2;
-	private final ModelPart r_leg;
-	private final ModelPart r_leg2;
-	private final KeyframeAnimation walkingAnimation;
-	private final KeyframeAnimation idleAnimation;
 
 	public SanglierModelAdult(ModelPart root) {
 		super(root);
-		this.Sanglier = root.getChild("SanglierModel");
-		this.upper_body_group = this.Sanglier.getChild("upper_body_group");
-		this.Head = this.upper_body_group.getChild("Head");
 		this.HornR = this.Head.getChild("HornR");
 		this.HornL = this.Head.getChild("HornL");
-		this.earsR = this.Head.getChild("earsR");
-		this.earsL = this.Head.getChild("earsL");
-		this.Butt = this.upper_body_group.getChild("Butt");
-		this.lower_body_group = this.Sanglier.getChild("lower_body_group");
-		this.l_leg = this.lower_body_group.getChild("l_leg");
-		this.l_leg2 = this.lower_body_group.getChild("l_leg2");
-		this.r_leg = this.lower_body_group.getChild("r_leg");
-		this.r_leg2 = this.lower_body_group.getChild("r_leg2");
-
-		walkingAnimation = SanglierAnimations.Walk.bake(root);
-		idleAnimation = SanglierAnimations.Idle.bake(root);
 	}
 
 	public static LayerDefinition createBodyLayer() {
