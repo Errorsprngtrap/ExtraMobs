@@ -8,6 +8,10 @@ public class ModModelLayerLocations {
     public static final ModelLayerLocation SANGLIER =
             new ModelLayerLocation(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"sanglier"),"main");
 
+    public static final ModelLayerLocation BABY_SANGLIER =
+            new ModelLayerLocation(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"baby_sanglier"),"main");
+
+
     public static final ModelLayerLocation CUBEMOB =
             new ModelLayerLocation(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"cubemob"),"main");
 
