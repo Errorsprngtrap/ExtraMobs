@@ -18,7 +18,7 @@ public class BabySanglierModel extends SanglierModel {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition BabySanglier = partdefinition.addOrReplaceChild("BabySanglierModel", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 24.0F, 0.0F, 0.0F, -1.5708F, 0.0F));
+		PartDefinition BabySanglier = partdefinition.addOrReplaceChild("SanglierModel", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 24.0F, 0.0F, 0.0F, -1.5708F, 0.0F));
 
 		PartDefinition upper_body_group = BabySanglier.addOrReplaceChild("upper_body_group", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -4.0F, -4.0F, 6.0F, 6.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.0F, 0.0F));
 
