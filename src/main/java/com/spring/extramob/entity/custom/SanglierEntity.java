@@ -162,7 +162,7 @@ public class SanglierEntity extends Animal implements NeutralMob {
                             && !mob.level().getBlockState(randomPos.above()).is(Blocks.SNOW)
                             && !mob.level().getBlockState(randomPos.above()).is(Blocks.POWDER_SNOW);
 
-                    if (notSeeSky && standable) {
+                    if (notSeeSky && standable && notSnowTerrain ) {
                         double distSq = randomPos.distSqr(pos);
                         if (distSq < bestDistSq) {
                             bestDistSq = distSq;
@@ -171,9 +171,7 @@ public class SanglierEntity extends Animal implements NeutralMob {
                     }
                 }
 
-                if (best == null) {
-                    return null;
-                } else {
+                if (best != null) {
                     return Vec3.atBottomCenterOf(best);
                 }
             }
