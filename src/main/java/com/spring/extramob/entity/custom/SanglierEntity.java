@@ -3,14 +3,18 @@ package com.spring.extramob.entity.custom;
 import com.spring.extramob.entity.Goal.BabyDontAttackGoal;
 import com.spring.extramob.entity.Goal.GoalAttackTargetNearBaby;
 import com.spring.extramob.entity.ModEntities;
+import com.spring.extramob.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -198,5 +202,21 @@ public class SanglierEntity extends Animal implements NeutralMob {
 
     }
 
+    //sound
 
+
+    @Override
+    protected @Nullable SoundEvent getAmbientSound() {
+        return ModSounds.SANGLIER_NOISE.get();
+    }
+
+    @Override
+    protected @Nullable SoundEvent getHurtSound(DamageSource source) {
+        return ModSounds.SANGLIER_HURT.get();
+    }
+
+    @Override
+    protected @Nullable SoundEvent getDeathSound() {
+        return SoundEvents.PIGLIN_DEATH;
+    }
 }

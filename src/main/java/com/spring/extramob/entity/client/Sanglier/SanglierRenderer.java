@@ -35,13 +35,6 @@ public class SanglierRenderer extends AgeableMobRenderer<SanglierEntity,Sanglier
 
     @Override
     public void submit(SanglierRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
-        //to rework later
-//        if(state.isBaby){
-//            poseStack.scale(0.5f,0.5f,0.5f);
-//
-//        }else{
-//            poseStack.scale(1f,1f,1f);
-//        }
         super.submit(state, poseStack, submitNodeCollector, camera);
     }
 
@@ -49,6 +42,6 @@ public class SanglierRenderer extends AgeableMobRenderer<SanglierEntity,Sanglier
     public void extractRenderState(SanglierEntity entity, SanglierRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
         state.idleAnimationState.copyFrom(entity.idleAnimationState);
-
     }
+
 }

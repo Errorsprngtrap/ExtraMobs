@@ -15,7 +15,8 @@ public class ModSounds {
 
     public static final Supplier<SoundEvent> CUBEMOB_HURT = registerSoundEvent("cubemob_hurt");
 
-
+    public static final Supplier<SoundEvent> SANGLIER_HURT = registerSoundEvent("sanglier_hurt");
+    public static final Supplier<SoundEvent> SANGLIER_NOISE = registerSoundEvent("sanglier_noise");
 
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {
