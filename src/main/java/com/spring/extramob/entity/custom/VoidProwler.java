@@ -13,6 +13,9 @@ public class VoidProwler extends Monster implements NeutralMob {
         super(type, level);
     }
 
+
+
+    //anger related
     @Override
     public long getPersistentAngerEndTime() {
         return 0;

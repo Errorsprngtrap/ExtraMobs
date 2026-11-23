@@ -17,6 +17,6 @@ public class VoidProwlerRenderer extends MobRenderer<VoidProwler,VoidProwlerRend
 
     @Override
     public VoidProwlerRenderState createRenderState() {
-        return null;
+        return new VoidProwlerRenderState();
     }
 }
