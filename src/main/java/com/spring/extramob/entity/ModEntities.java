@@ -18,6 +18,9 @@ public class ModEntities {
     public static final ResourceKey<EntityType<?>> SANGLIER_KEY = ResourceKey.create(Registries.ENTITY_TYPE,
             Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID, "sanglier"));
 
+    public static final ResourceKey<EntityType<?>> VOIDPROWLER_KEY = ResourceKey.create(Registries.ENTITY_TYPE,
+            Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID, "voidprowler"));
+
     public static final ResourceKey<EntityType<?>> CUBEMOB_KEY = ResourceKey.create(Registries.ENTITY_TYPE,
             Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID, "cubemob"));
 
@@ -35,6 +38,10 @@ public class ModEntities {
 
     public static final Supplier<EntityType<SanglierEntity>> SANGLIER = ENTITY_TYPES.register("sanglier",
             ()-> EntityType.Builder.of(SanglierEntity::new, MobCategory.CREATURE).sized(1,1).build(SANGLIER_KEY));
+
+    public static final Supplier<EntityType<VoidProwlerEntity>> VOIDPROWLER = ENTITY_TYPES.register("voidprowler",
+            ()-> EntityType.Builder.of(VoidProwlerEntity::new, MobCategory.MONSTER).sized(1,1).noLootTable().build(VOIDPROWLER_KEY));
+
 
     public static final Supplier<EntityType<CubeMobEntity>> CUBEMOB = ENTITY_TYPES.register("cubemob",
             ()-> EntityType.Builder.of(CubeMobEntity::new, MobCategory.CREATURE).sized(1,1).build(CUBEMOB_KEY));

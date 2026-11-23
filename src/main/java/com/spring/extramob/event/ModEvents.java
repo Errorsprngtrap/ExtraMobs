@@ -5,8 +5,10 @@ import com.spring.extramob.entity.ModEntities;
 import com.spring.extramob.entity.custom.*;
 import com.spring.extramob.item.ModItems;
 import com.spring.extramob.potion.ModPotion;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -26,6 +28,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onRegisterAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.SANGLIER.get(), SanglierEntity.createSanglierAttributes().build());
+        event.put(ModEntities.VOIDPROWLER.get(), VoidProwlerEntity.createVoidProwlerAttributes().build());
 
         event.put(ModEntities.CUBEMOB.get(), CubeMobEntity.createCubeMobAttributes().build());
         event.put(ModEntities.PUFFBALL.get(), PuffBallEntity.createPuffBallAttributes().build());
@@ -35,9 +38,11 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void registerSpawnPlacement(RegisterSpawnPlacementsEvent event) {
-        event.register(ModEntities.GIRAFFE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+        event.register(ModEntities.SANGLIER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 PathfinderMob::checkMobSpawnRules,RegisterSpawnPlacementsEvent.Operation.REPLACE);
-    }
 
+        event.register(ModEntities.VOIDPROWLER.get(),SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Monster::checkMonsterSpawnRules,RegisterSpawnPlacementsEvent.Operation.REPLACE);
+    }
 
 }
