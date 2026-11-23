@@ -8,7 +8,7 @@ import net.minecraft.world.level.Level;
 import org.jspecify.annotations.Nullable;
 
 public class VoidProwlerEntity extends Monster implements NeutralMob {
-    //Idle Anim
+    //Idle Animation
     public static AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
