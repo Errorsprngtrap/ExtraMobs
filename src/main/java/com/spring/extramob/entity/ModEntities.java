@@ -40,7 +40,7 @@ public class ModEntities {
             ()-> EntityType.Builder.of(SanglierEntity::new, MobCategory.CREATURE).sized(1,1).build(SANGLIER_KEY));
 
     public static final Supplier<EntityType<VoidProwlerEntity>> VOIDPROWLER = ENTITY_TYPES.register("voidprowler",
-            ()-> EntityType.Builder.of(VoidProwlerEntity::new, MobCategory.MONSTER).sized(1,1).noLootTable().build(VOIDPROWLER_KEY));
+            ()-> EntityType.Builder.of(VoidProwlerEntity::new, MobCategory.MONSTER).sized(1,3).noLootTable().build(VOIDPROWLER_KEY));
 
 
     public static final Supplier<EntityType<CubeMobEntity>> CUBEMOB = ENTITY_TYPES.register("cubemob",
