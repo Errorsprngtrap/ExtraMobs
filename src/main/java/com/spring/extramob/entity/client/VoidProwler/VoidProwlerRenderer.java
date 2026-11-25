@@ -13,6 +13,7 @@ import net.minecraft.resources.Identifier;
 public class VoidProwlerRenderer extends MobRenderer<VoidProwlerEntity,VoidProwlerRenderState,VoidProwlerModel> {
     public VoidProwlerRenderer(EntityRendererProvider.Context context) {
         super(context, new VoidProwlerModel(context.bakeLayer(ModModelLayerLocations.VOIDPROWLER)), 0.1f);
+        this.addLayer(new VoidProwlerEyeLayer(this,context.getModelSet()));
     }
 
     @Override

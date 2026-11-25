@@ -14,6 +14,10 @@ public class ModModelLayerLocations {
     public static final ModelLayerLocation VOIDPROWLER =
             new ModelLayerLocation(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"voidprowler"),"main");
 
+    public static final ModelLayerLocation VOIDPROWLER_EYE =
+            new ModelLayerLocation(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"voidprowler_eye"),"eye");
+
+
     public static final ModelLayerLocation CUBEMOB =
             new ModelLayerLocation(Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"cubemob"),"main");
 

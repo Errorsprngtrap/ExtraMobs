@@ -82,6 +82,25 @@ public class SanglierEntity extends Animal implements NeutralMob {
         this.addPersistentAngerSaveData(output);
     }
 
+    //anim
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.level().isClientSide()) {
+            this.setupAnimationStates();
+        }
+    }
+
+    private void setupAnimationStates() {
+        if(this.idleAnimationTimeout <= 0){
+            this.idleAnimationTimeout = 20;
+            this.idleAnimationState.start(this.tickCount);
+        }else{
+            this.idleAnimationTimeout--;
+        }
+    }
+
+    //anger
     @Override
     public long getPersistentAngerEndTime() {
         return this.persistentAngerEndTime;

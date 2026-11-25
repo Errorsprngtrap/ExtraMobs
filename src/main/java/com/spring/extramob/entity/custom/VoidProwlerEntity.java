@@ -22,6 +22,24 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
                 .add(Attributes.MAX_HEALTH, (double)40.0F);
     }
 
+    //anim
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.level().isClientSide()) {
+            this.setupAnimationStates();
+        }
+    }
+
+    private void setupAnimationStates() {
+        if(this.idleAnimationTimeout <= 0){
+            this.idleAnimationTimeout = 20;
+            this.idleAnimationState.start(this.tickCount);
+        }else{
+            this.idleAnimationTimeout--;
+        }
+    }
+
     //anger related
     @Override
     public long getPersistentAngerEndTime() {
