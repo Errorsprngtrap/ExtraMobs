@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 
+//Eye
 public class VoidProwlerEyeLayer extends RenderLayer<VoidProwlerRenderState,VoidProwlerModel> {
     private final VoidProwlerEyeModel voidProwlerEyeModel;
     private static final Identifier eyesTexture = Identifier.fromNamespaceAndPath(ExtraMob.MOD_ID,"textures/entity/voidprowler/voidprowler_eye.png");
