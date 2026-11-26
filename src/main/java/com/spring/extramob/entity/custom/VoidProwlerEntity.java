@@ -190,6 +190,16 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
         }
     }
 
+    private boolean teleportTowardsEntity(Entity entity) {
+        Vec3 dir = new Vec3(this.getX() - entity.getX(), this.getY(0.5) - entity.getEyeY(), this.getZ() - entity.getZ());
+        dir = dir.normalize();
+        double d = 16.0;
+        double xx = this.getX() + (this.random.nextDouble() - 0.5) * 8.0 - dir.x * 16.0;
+        double yy = this.getY() + (this.random.nextInt(16) - 8) - dir.y * 16.0;
+        double zz = this.getZ() + (this.random.nextDouble() - 0.5) * 8.0 - dir.z * 16.0;
+        return this.teleport(xx, yy, zz);
+    }
+
     //custom goal
     private static class VoidProwlerLookForPlayerGoal extends NearestAttackableTargetGoal<Player> {
         private final VoidProwlerEntity voidProwler;
@@ -207,6 +217,74 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
                     && !mob.hasIndirectPassenger(target);
             this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(this.isAngerInducing);
 
+        }
+
+        @Override
+        public boolean canUse() {
+            this.pendingTarget = getServerLevel(this.mob).getNearestPlayer(this.startAggroTargetConditions.range(this.getFollowDistance()), this.mob);
+            return this.pendingTarget != null;
+        }
+
+
+        @Override
+        public void start() {
+            this.aggroTime = this.adjustedTickDelay(5);
+            this.teleportTime = 0;
+        }
+
+        @Override
+        public void stop() {
+            this.pendingTarget = null;
+            super.stop();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            if (this.pendingTarget != null) {
+                if (!this.isAngerInducing.test(this.pendingTarget, getServerLevel(this.mob))) {
+                    return false;
+                } else {
+                    this.mob.lookAt(this.pendingTarget, 10.0F, 10.0F);
+                    return true;
+                }
+            } else {
+                if (this.target != null) {
+                    if (this.mob.hasIndirectPassenger(this.target)) {
+                        return false;
+                    }
+
+                    if (this.continueAggroTargetConditions.test(getServerLevel(this.mob), this.mob, this.target)) {
+                        return true;
+                    }
+                }
+
+                return super.canContinueToUse();
+            }
+        }
+
+        @Override
+        public void tick() {
+            if (this.mob.getTarget() == null) {
+                super.setTarget(null);
+            }
+
+            if (this.pendingTarget != null) {
+                if (--this.aggroTime <= 0) {
+                    this.target = this.pendingTarget;
+                    this.pendingTarget = null;
+                    super.start();
+                }
+            } else {
+                if (this.target != null && !this.mob.isPassenger()) {
+                     if (this.target.distanceToSqr(this.mob) > 256.0
+                            && this.teleportTime++ >= this.adjustedTickDelay(30)
+                            && this.mob.tele(this.target)) {
+                        this.teleportTime = 0;
+                    }
+                }
+
+                super.tick();
+            }
         }
     }
 
