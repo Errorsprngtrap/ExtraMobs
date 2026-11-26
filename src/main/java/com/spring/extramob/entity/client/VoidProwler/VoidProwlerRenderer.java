@@ -14,6 +14,7 @@ public class VoidProwlerRenderer extends MobRenderer<VoidProwlerEntity,VoidProwl
     public VoidProwlerRenderer(EntityRendererProvider.Context context) {
         super(context, new VoidProwlerModel(context.bakeLayer(ModModelLayerLocations.VOIDPROWLER)), 0.1f);
         this.addLayer(new VoidProwlerEyeLayer(this,context.getModelSet()));
+        this.addLayer(new VoidProwlerMouthLayer(this,context.getModelSet()));
     }
 
     @Override

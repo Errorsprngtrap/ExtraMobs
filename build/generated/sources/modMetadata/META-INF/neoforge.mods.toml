@@ -65,7 +65,7 @@ config="extramob.mixins.json"
     # Optional field describing why the dependency is required or why it is incompatible
     # reason="..."
     # The version range of the dependency
-    versionRange="[26.1.2.122,)" #mandatory
+    versionRange="[26.1.2.130,)" #mandatory
     # An ordering relationship for the dependency.
     # BEFORE - This mod is loaded BEFORE the dependency
     # AFTER - This mod is loaded AFTER the dependency

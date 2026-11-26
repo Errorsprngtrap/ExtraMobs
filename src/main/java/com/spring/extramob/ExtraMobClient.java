@@ -17,6 +17,7 @@ import com.spring.extramob.entity.client.Sanglier.SanglierModelAdult;
 import com.spring.extramob.entity.client.Sanglier.SanglierRenderer;
 import com.spring.extramob.entity.client.VoidProwler.VoidProwlerEyeModel;
 import com.spring.extramob.entity.client.VoidProwler.VoidProwlerModel;
+import com.spring.extramob.entity.client.VoidProwler.VoidProwlerMouthModel;
 import com.spring.extramob.entity.client.VoidProwler.VoidProwlerRenderer;
 import com.spring.extramob.entity.client.WarTurtle.WarTurtleModel;
 import com.spring.extramob.entity.client.WarTurtle.WarTurtleRenderer;
@@ -74,8 +75,10 @@ public class ExtraMobClient {
     public static void  registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event){
         event.registerLayerDefinition(ModModelLayerLocations.SANGLIER, SanglierModelAdult::createBodyLayer);
         event.registerLayerDefinition(ModModelLayerLocations.BABY_SANGLIER, BabySanglierModel::createBodyLayer);
+
         event.registerLayerDefinition(ModModelLayerLocations.VOIDPROWLER, VoidProwlerModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayerLocations.VOIDPROWLER_EYE, VoidProwlerEyeModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayerLocations.VOIDPROWLER_MOUTH, VoidProwlerMouthModel::createBodyLayer);
 
         event.registerLayerDefinition(ModModelLayerLocations.CUBEMOB, CubeMobModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayerLocations.PUFFBALL, PuffBallModel::createBodyLayer);

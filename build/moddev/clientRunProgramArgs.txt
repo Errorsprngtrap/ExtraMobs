@@ -3,7 +3,7 @@ net.neoforged.fml.startup.Client
 
 # NeoForge Run-Type Program Arguments
 --version
-26.1.2.122
+26.1.2.130
 --assetIndex
 30
 --assetsDir

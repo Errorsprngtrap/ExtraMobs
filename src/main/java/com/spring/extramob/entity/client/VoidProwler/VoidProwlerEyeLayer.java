@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.LightCoordsUtil;
 
 //Eye
 public class VoidProwlerEyeLayer extends RenderLayer<VoidProwlerRenderState,VoidProwlerModel> {
@@ -25,6 +26,6 @@ public class VoidProwlerEyeLayer extends RenderLayer<VoidProwlerRenderState,Void
     public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCord, VoidProwlerRenderState state, float v, float v1) {
         this.voidProwlerEyeModel.setupAnim(state);
         submitNodeCollector.order(1).submitModel(this.voidProwlerEyeModel,state,poseStack, RenderTypes.entityTranslucentEmissive(eyesTexture,false),
-                lightCord, OverlayTexture.NO_OVERLAY, -1, null, state.outlineColor, null);
+                LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, -1, null, state.outlineColor, null);
     }
 }

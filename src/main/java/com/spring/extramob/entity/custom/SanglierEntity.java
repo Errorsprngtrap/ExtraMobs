@@ -5,12 +5,10 @@ import com.spring.extramob.entity.Goal.GoalAttackTargetNearBaby;
 import com.spring.extramob.entity.ModEntities;
 import com.spring.extramob.sound.ModSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -33,7 +31,7 @@ import org.jspecify.annotations.Nullable;
 
 public class SanglierEntity extends Animal implements NeutralMob {
     //Idle Anim
-    public static AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(10, 20);

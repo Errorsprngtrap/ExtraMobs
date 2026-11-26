@@ -3,10 +3,12 @@ package com.spring.extramob.entity.client.VoidProwler;// Made with Blockbench 5.
 // Paste this class into your mod and generate all required imports
 
 
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 
 public class VoidProwlerEyeModel extends EntityModel<VoidProwlerRenderState> {
 	private final ModelPart VoidProwler;
@@ -21,6 +23,9 @@ public class VoidProwlerEyeModel extends EntityModel<VoidProwlerRenderState> {
 	private final ModelPart l_leg;
 	private final ModelPart r_leg;
 
+	protected  final KeyframeAnimation walkingAnimation;
+	protected  final KeyframeAnimation idleAnimation;
+
 	public VoidProwlerEyeModel(ModelPart root) {
         super(root);
         this.VoidProwler = root.getChild("VoidProwler");
@@ -34,6 +39,9 @@ public class VoidProwlerEyeModel extends EntityModel<VoidProwlerRenderState> {
 		this.lower_body_group = this.VoidProwler.getChild("lower_body_group");
 		this.l_leg = this.lower_body_group.getChild("l_leg");
 		this.r_leg = this.lower_body_group.getChild("r_leg");
+
+		walkingAnimation = VoidProwlerAnimations.Walk.bake(root);
+		idleAnimation = VoidProwlerAnimations.Idle.bake(root);
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -70,4 +78,20 @@ public class VoidProwlerEyeModel extends EntityModel<VoidProwlerRenderState> {
 		return LayerDefinition.create(meshdefinition, 16, 16);
 	}
 
+	@Override
+	public void setupAnim(VoidProwlerRenderState state) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.applyHeadRotation(state.yRot,state.xRot);
+
+		this.walkingAnimation.applyWalk(state.walkAnimationPos,state.walkAnimationSpeed,2f,2.5f);
+		this.idleAnimation.apply(state.idleAnimationState,state.ageInTicks,1);
+	}
+
+	private void applyHeadRotation(float headYaw, float headPitch) {
+		headYaw = Mth.clamp(headYaw, -30f, 30f);
+		headPitch = Mth.clamp(headPitch, -25f, 45);
+
+		this.Head.yRot = headYaw * ((float)Math.PI / 180f);
+		this.Head.xRot = headPitch *  ((float)Math.PI / 180f);
+	}
 }
