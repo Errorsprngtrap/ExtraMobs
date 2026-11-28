@@ -215,13 +215,9 @@ public class SanglierEntity extends Animal implements NeutralMob {
         public boolean canContinueToUse() {
             return !mob.level().isDarkOutside() && super.canContinueToUse();
         }
-
-
     }
 
     //sound
-
-
     @Override
     protected @Nullable SoundEvent getAmbientSound() {
         return ModSounds.SANGLIER_NOISE.get();

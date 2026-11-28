@@ -7,6 +7,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -17,9 +19,7 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -30,13 +30,24 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
-public class VoidProwlerEntity extends Monster implements NeutralMob {
+public class VoidProwlerEntity extends Monster {
     //Idle Animation
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+
+    public final AnimationState poseAnimationState = new AnimationState();
+    private int poseAnimationTimeout = 0;
+
+
+    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 40);
+    private long persistentAngerEndTime;
+    private @Nullable EntityReference<LivingEntity> persistentAngerTarget;
+
 
     public VoidProwlerEntity(EntityType<? extends Monster> type, Level level) {
         super(type, level);
@@ -47,26 +58,38 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, (double)1.0F, false));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, (double)1.0F, 0.0F));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, (double) 1.0F, false));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, (double) 1.0F, 0.0F));
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
 
-        this.targetSelector.addGoal(1, new VoidProwlerEntity.VoidProwlerLookForPlayerGoal(this, this::isAngryAt));
+        //this.targetSelector.addGoal(1, new VoidProwlerEntity.VoidProwlerLookForPlayerGoal(this, this::isAngryAt));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Endermite.class, true, false));
-        this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
-    }
 
 
     //attribute
     public static AttributeSupplier.Builder createVoidProwlerAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, (double)60.0F)
+                .add(Attributes.MAX_HEALTH, (double) 60.0F)
                 .add(Attributes.MOVEMENT_SPEED, 0.13F)
-                .add(Attributes.FOLLOW_RANGE, 25.0F)
+                .add(Attributes.FOLLOW_RANGE, 80.0F)
                 .add(Attributes.ATTACK_DAMAGE, 3.0)
                 .add(Attributes.STEP_HEIGHT, 1.0);
     }
+
+    //data
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.readPersistentAngerSaveData(this.level(), input);
+    }
+
+    @Override
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        this.addPersistentAngerSaveData(output);
+    }
+
 
     //anim
     @Override
@@ -78,10 +101,10 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
     }
 
     private void setupAnimationStates() {
-        if(this.idleAnimationTimeout <= 0){
+        if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = 20;
             this.idleAnimationState.start(this.tickCount);
-        }else{
+        } else {
             this.idleAnimationTimeout--;
         }
     }
@@ -89,27 +112,27 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
     //anger related
     @Override
     public long getPersistentAngerEndTime() {
-        return 0;
+        return this.persistentAngerEndTime;
     }
 
     @Override
-    public void setPersistentAngerEndTime(long l) {
-
+    public void setPersistentAngerEndTime(long endTime) {
+        this.persistentAngerEndTime = endTime;
     }
 
     @Override
     public @Nullable EntityReference<LivingEntity> getPersistentAngerTarget() {
-        return null;
+        return this.persistentAngerTarget;
     }
 
     @Override
     public void setPersistentAngerTarget(@Nullable EntityReference<LivingEntity> entityReference) {
-
+        this.persistentAngerTarget = entityReference;
     }
 
     @Override
     public void startPersistentAngerTimer() {
-
+        this.setTimeToRemainAngry(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
     //hurt
@@ -130,7 +153,6 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
                 if (!(source.getEntity() instanceof LivingEntity) && this.random.nextInt(10) != 0) {
                     teleport();
                 }
-
                 return result;
             } else {
                 boolean hurtWithCleanWater = thrownPotion != null && this.hurtWithCleanWater(level, source, thrownPotion, damage);
@@ -211,7 +233,7 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
         private final TargetingConditions.Selector isAngerInducing;
 
         public VoidProwlerLookForPlayerGoal(VoidProwlerEntity voidProwler, TargetingConditions.Selector isAngerInducing) {
-            super(voidProwler, Player.class, 10,false,false,isAngerInducing);
+            super(voidProwler, Player.class, 10, false, false, isAngerInducing);
             this.voidProwler = voidProwler;
             this.isAngerInducing = (target, level) -> (voidProwler.isAngryAt(target, level))
                     && !voidProwler.hasIndirectPassenger(target);
@@ -276,7 +298,7 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
                 }
             } else {
                 if (this.target != null && !this.voidProwler.isPassenger()) {
-                     if (this.target.distanceToSqr(this.voidProwler) > 256.0
+                    if (this.target.distanceToSqr(this.voidProwler) > 256.0
                             && this.teleportTime++ >= this.adjustedTickDelay(15)
                             && this.voidProwler.teleportTowardsEntity(this.target)) {
                         this.teleportTime = 0;
@@ -287,96 +309,4 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
             }
         }
     }
-
-//    private static class EndermanLookForPlayerGoal extends NearestAttackableTargetGoal<Player> {
-//        private final EnderMan enderman;
-//        private @Nullable Player pendingTarget;
-//        private int aggroTime;
-//        private int teleportTime;
-//        private final TargetingConditions startAggroTargetConditions;
-//        private final TargetingConditions continueAggroTargetConditions = TargetingConditions.forCombat().ignoreLineOfSight();
-//        private final TargetingConditions.Selector isAngerInducing;
-//
-//        public EndermanLookForPlayerGoal(EnderMan enderman, TargetingConditions.@Nullable Selector isAngryAt) {
-//            super(enderman, Player.class, 10, false, false, isAngryAt);
-//            this.enderman = enderman;
-//            this.isAngerInducing = (target, level) -> (enderman.isBeingStaredBy((Player)target) || enderman.isAngryAt(target, level))
-//                    && !enderman.hasIndirectPassenger(target);
-//            this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(this.isAngerInducing);
-//        }
-//
-//        @Override
-//        public boolean canUse() {
-//            this.pendingTarget = getServerLevel(this.enderman).getNearestPlayer(this.startAggroTargetConditions.range(this.getFollowDistance()), this.enderman);
-//            return this.pendingTarget != null;
-//        }
-//
-//        @Override
-//        public void start() {
-//            this.aggroTime = this.adjustedTickDelay(5);
-//            this.teleportTime = 0;
-//            this.enderman.setBeingStaredAt();
-//        }
-//
-//        @Override
-//        public void stop() {
-//            this.pendingTarget = null;
-//            super.stop();
-//        }
-//
-//        @Override
-//        public boolean canContinueToUse() {
-//            if (this.pendingTarget != null) {
-//                if (!this.isAngerInducing.test(this.pendingTarget, getServerLevel(this.enderman))) {
-//                    return false;
-//                } else {
-//                    this.enderman.lookAt(this.pendingTarget, 10.0F, 10.0F);
-//                    return true;
-//                }
-//            } else {
-//                if (this.target != null) {
-//                    if (this.enderman.hasIndirectPassenger(this.target)) {
-//                        return false;
-//                    }
-//
-//                    if (this.continueAggroTargetConditions.test(getServerLevel(this.enderman), this.enderman, this.target)) {
-//                        return true;
-//                    }
-//                }
-//
-//                return super.canContinueToUse();
-//            }
-//        }
-//
-//        @Override
-//        public void tick() {
-//            if (this.enderman.getTarget() == null) {
-//                super.setTarget(null);
-//            }
-//
-//            if (this.pendingTarget != null) {
-//                if (--this.aggroTime <= 0) {
-//                    this.target = this.pendingTarget;
-//                    this.pendingTarget = null;
-//                    super.start();
-//                }
-//            } else {
-//                if (this.target != null && !this.enderman.isPassenger()) {
-//                    if (this.enderman.isBeingStaredBy((Player)this.target)) {
-//                        if (this.target.distanceToSqr(this.enderman) < 16.0) {
-//                            this.enderman.teleport();
-//                        }
-//
-//                        this.teleportTime = 0;
-//                    } else if (this.target.distanceToSqr(this.enderman) > 256.0
-//                            && this.teleportTime++ >= this.adjustedTickDelay(30)
-//                            && this.enderman.teleportTowards(this.target)) {
-//                        this.teleportTime = 0;
-//                    }
-//                }
-//
-//                super.tick();
-//            }
-//        }
-//    }
 }
