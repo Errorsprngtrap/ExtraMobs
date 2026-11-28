@@ -7,8 +7,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.TimeUtil;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -19,9 +17,6 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -32,10 +27,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.Nullable;
 
 public class VoidProwlerEntity extends Monster {
     //Idle Animation
@@ -45,10 +37,6 @@ public class VoidProwlerEntity extends Monster {
     public final AnimationState poseAnimationState = new AnimationState();
     private int poseAnimationTimeout = 0;
 
-
-    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 40);
-    private long persistentAngerEndTime;
-    private @Nullable EntityReference<LivingEntity> persistentAngerTarget;
 
 
     public VoidProwlerEntity(EntityType<? extends Monster> type, Level level) {
@@ -64,7 +52,7 @@ public class VoidProwlerEntity extends Monster {
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, (double) 1.0F, 0.0F));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
 
-        this.targetSelector.addGoal(1, new VoidProwlerEntity.VoidProwlerLookForPlayerGoal(this));
+        this.targetSelector.addGoal(1,new VoidProwlerNearestTargetGoal(this,Player.class,true));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Endermite.class, true, false));
     }
@@ -79,9 +67,6 @@ public class VoidProwlerEntity extends Monster {
                 .add(Attributes.ATTACK_DAMAGE, 3.0)
                 .add(Attributes.STEP_HEIGHT, 1.0);
     }
-
-
-
 
     //anim
     @Override
@@ -189,81 +174,28 @@ public class VoidProwlerEntity extends Monster {
     }
 
     //custom goal
-    private static class VoidProwlerLookForPlayerGoal extends NearestAttackableTargetGoal<Player> {
+    private static class VoidProwlerNearestTargetGoal extends NearestAttackableTargetGoal<Player> {
         private final VoidProwlerEntity voidProwler;
-        private @Nullable Player pendingTarget;
-        private int aggroTime;
         private int teleportTime;
-        private final TargetingConditions startAggroTargetConditions;
-        private final TargetingConditions continueAggroTargetConditions = TargetingConditions.forCombat().ignoreLineOfSight();
 
-        public VoidProwlerLookForPlayerGoal(VoidProwlerEntity voidProwler, TargetingConditions.Selector isAngerInducing) {
-            super(voidProwler, Player.class, 10, false, false, isAngerInducing);
+        public VoidProwlerNearestTargetGoal(VoidProwlerEntity voidProwler, Class<Player> targetType, boolean mustSee) {
             this.voidProwler = voidProwler;
-
-            this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector();
-
+            super(voidProwler, targetType, mustSee);
         }
-
-        @Override
-        public boolean canUse() {
-            this.pendingTarget = getServerLevel(this.voidProwler).getNearestPlayer(this.startAggroTargetConditions.range(this.getFollowDistance()), this.voidProwler);
-            return this.pendingTarget != null;
-        }
-
 
         @Override
         public void start() {
-            this.aggroTime = this.adjustedTickDelay(5);
             this.teleportTime = 0;
-        }
-
-        @Override
-        public void stop() {
-            this.pendingTarget = null;
-            super.stop();
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            if (this.pendingTarget != null) {
-                if (!this.isAngerInducing.test(this.pendingTarget, getServerLevel(this.voidProwler))) {
-                    return false;
-                } else {
-                    this.voidProwler.lookAt(this.pendingTarget, 10.0F, 10.0F);
-                    return true;
-                }
-            } else {
-                if (this.target != null) {
-                    if (this.voidProwler.hasIndirectPassenger(this.target)) {
-                        return false;
-                    }
-
-                    if (this.continueAggroTargetConditions.test(getServerLevel(this.voidProwler), this.voidProwler, this.target)) {
-                        return true;
-                    }
-                }
-
-                return super.canContinueToUse();
-            }
         }
 
         @Override
         public void tick() {
             if (this.voidProwler.getTarget() == null) {
                 super.setTarget(null);
-            }
-
-            if (this.pendingTarget != null) {
-                if (--this.aggroTime <= 0) {
-                    this.target = this.pendingTarget;
-                    this.pendingTarget = null;
-                    super.start();
-                }
             } else {
                 if (this.target != null && !this.voidProwler.isPassenger()) {
-                    if (this.target.distanceToSqr(this.voidProwler) > 256.0
-                            && this.teleportTime++ >= this.adjustedTickDelay(15)
+                    if (this.target.distanceToSqr(this.voidProwler) > 8
+                            && this.teleportTime++ >= this.adjustedTickDelay(30)
                             && this.voidProwler.teleportTowardsEntity(this.target)) {
                         this.teleportTime = 0;
                     }
