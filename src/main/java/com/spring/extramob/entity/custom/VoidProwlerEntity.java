@@ -67,7 +67,7 @@ public class VoidProwlerEntity extends Monster {
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Endermite.class, true, false));
 
 
-    //attribute/
+    //attribute//
     public static AttributeSupplier.Builder createVoidProwlerAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, (double) 60.0F)
