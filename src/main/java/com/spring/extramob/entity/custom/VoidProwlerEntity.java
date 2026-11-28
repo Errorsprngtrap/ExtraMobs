@@ -19,7 +19,9 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -62,12 +64,13 @@ public class VoidProwlerEntity extends Monster {
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, (double) 1.0F, 0.0F));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
 
-        //this.targetSelector.addGoal(1, new VoidProwlerEntity.VoidProwlerLookForPlayerGoal(this, this::isAngryAt));
+        this.targetSelector.addGoal(1, new VoidProwlerEntity.VoidProwlerLookForPlayerGoal(this));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Endermite.class, true, false));
+    }
 
 
-    //attribute///
+    //attribute
     public static AttributeSupplier.Builder createVoidProwlerAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, (double) 60.0F)
@@ -77,18 +80,7 @@ public class VoidProwlerEntity extends Monster {
                 .add(Attributes.STEP_HEIGHT, 1.0);
     }
 
-    //data
-    @Override
-    protected void readAdditionalSaveData(ValueInput input) {
-        super.readAdditionalSaveData(input);
-        this.readPersistentAngerSaveData(this.level(), input);
-    }
 
-    @Override
-    protected void addAdditionalSaveData(ValueOutput output) {
-        super.addAdditionalSaveData(output);
-        this.addPersistentAngerSaveData(output);
-    }
 
 
     //anim
@@ -108,33 +100,6 @@ public class VoidProwlerEntity extends Monster {
             this.idleAnimationTimeout--;
         }
     }
-
-    //anger related
-    @Override
-    public long getPersistentAngerEndTime() {
-        return this.persistentAngerEndTime;
-    }
-
-    @Override
-    public void setPersistentAngerEndTime(long endTime) {
-        this.persistentAngerEndTime = endTime;
-    }
-
-    @Override
-    public @Nullable EntityReference<LivingEntity> getPersistentAngerTarget() {
-        return this.persistentAngerTarget;
-    }
-
-    @Override
-    public void setPersistentAngerTarget(@Nullable EntityReference<LivingEntity> entityReference) {
-        this.persistentAngerTarget = entityReference;
-    }
-
-    @Override
-    public void startPersistentAngerTimer() {
-        this.setTimeToRemainAngry(PERSISTENT_ANGER_TIME.sample(this.random));
-    }
-
 
     //hurt
     private boolean hurtWithCleanWater(ServerLevel level, DamageSource source, AbstractThrownPotion thrownPotion, float damage) {
