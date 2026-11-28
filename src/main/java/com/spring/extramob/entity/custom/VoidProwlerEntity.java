@@ -7,6 +7,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -30,6 +32,8 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
@@ -37,6 +41,15 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
     //Idle Animation
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+
+    public final AnimationState poseAnimationState = new AnimationState();
+    private int poseAnimationTimeout = 0;
+
+
+    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 40);
+    private long persistentAngerEndTime;
+    private @Nullable EntityReference<LivingEntity> persistentAngerTarget;
+
 
     public VoidProwlerEntity(EntityType<? extends Monster> type, Level level) {
         super(type, level);
@@ -68,6 +81,20 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
                 .add(Attributes.STEP_HEIGHT, 1.0);
     }
 
+    //data
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.readPersistentAngerSaveData(this.level(), input);
+    }
+
+    @Override
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        this.addPersistentAngerSaveData(output);
+    }
+
+
     //anim
     @Override
     public void tick() {
@@ -89,28 +116,29 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
     //anger related
     @Override
     public long getPersistentAngerEndTime() {
-        return 0;
+        return this.persistentAngerEndTime;
     }
 
     @Override
-    public void setPersistentAngerEndTime(long l) {
-
+    public void setPersistentAngerEndTime(long endTime) {
+        this.persistentAngerEndTime = endTime;
     }
 
     @Override
     public @Nullable EntityReference<LivingEntity> getPersistentAngerTarget() {
-        return null;
+        return this.persistentAngerTarget;
     }
 
     @Override
     public void setPersistentAngerTarget(@Nullable EntityReference<LivingEntity> entityReference) {
-
+        this.persistentAngerTarget = entityReference;
     }
 
     @Override
     public void startPersistentAngerTimer() {
-
+        this.setTimeToRemainAngry(PERSISTENT_ANGER_TIME.sample(this.random));
     }
+
 
     //hurt
     private boolean hurtWithCleanWater(ServerLevel level, DamageSource source, AbstractThrownPotion thrownPotion, float damage) {
