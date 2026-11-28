@@ -196,14 +196,12 @@ public class VoidProwlerEntity extends Monster {
         private int teleportTime;
         private final TargetingConditions startAggroTargetConditions;
         private final TargetingConditions continueAggroTargetConditions = TargetingConditions.forCombat().ignoreLineOfSight();
-        private final TargetingConditions.Selector isAngerInducing;
 
         public VoidProwlerLookForPlayerGoal(VoidProwlerEntity voidProwler, TargetingConditions.Selector isAngerInducing) {
             super(voidProwler, Player.class, 10, false, false, isAngerInducing);
             this.voidProwler = voidProwler;
-            this.isAngerInducing = (target, level) -> (voidProwler.isAngryAt(target, level))
-                    && !voidProwler.hasIndirectPassenger(target);
-            this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(this.isAngerInducing);
+
+            this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector();
 
         }
 
