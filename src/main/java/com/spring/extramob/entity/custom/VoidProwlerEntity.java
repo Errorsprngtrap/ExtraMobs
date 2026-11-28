@@ -135,6 +135,7 @@ public class VoidProwlerEntity extends Monster {
         this.setTimeToRemainAngry(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
+
     //hurt
     private boolean hurtWithCleanWater(ServerLevel level, DamageSource source, AbstractThrownPotion thrownPotion, float damage) {
         ItemStack potionItemStack = thrownPotion.getItem();
