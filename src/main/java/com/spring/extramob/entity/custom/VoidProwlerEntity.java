@@ -210,18 +210,18 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
         private final TargetingConditions continueAggroTargetConditions = TargetingConditions.forCombat().ignoreLineOfSight();
         private final TargetingConditions.Selector isAngerInducing;
 
-        public VoidProwlerLookForPlayerGoal(VoidProwlerEntity mob, TargetingConditions.Selector isAngerInducing) {
-            super(mob, Player.class, 10,false,false,isAngerInducing);
-            this.voidProwler = mob;
-            this.isAngerInducing = (target, level) -> (mob.isAngryAt(target, level))
-                    && !mob.hasIndirectPassenger(target);
+        public VoidProwlerLookForPlayerGoal(VoidProwlerEntity voidProwler, TargetingConditions.Selector isAngerInducing) {
+            super(voidProwler, Player.class, 10,false,false,isAngerInducing);
+            this.voidProwler = voidProwler;
+            this.isAngerInducing = (target, level) -> (voidProwler.isAngryAt(target, level))
+                    && !voidProwler.hasIndirectPassenger(target);
             this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(this.isAngerInducing);
 
         }
 
         @Override
         public boolean canUse() {
-            this.pendingTarget = getServerLevel(this.mob).getNearestPlayer(this.startAggroTargetConditions.range(this.getFollowDistance()), this.mob);
+            this.pendingTarget = getServerLevel(this.voidProwler).getNearestPlayer(this.startAggroTargetConditions.range(this.getFollowDistance()), this.voidProwler);
             return this.pendingTarget != null;
         }
 
@@ -241,19 +241,19 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
         @Override
         public boolean canContinueToUse() {
             if (this.pendingTarget != null) {
-                if (!this.isAngerInducing.test(this.pendingTarget, getServerLevel(this.mob))) {
+                if (!this.isAngerInducing.test(this.pendingTarget, getServerLevel(this.voidProwler))) {
                     return false;
                 } else {
-                    this.mob.lookAt(this.pendingTarget, 10.0F, 10.0F);
+                    this.voidProwler.lookAt(this.pendingTarget, 10.0F, 10.0F);
                     return true;
                 }
             } else {
                 if (this.target != null) {
-                    if (this.mob.hasIndirectPassenger(this.target)) {
+                    if (this.voidProwler.hasIndirectPassenger(this.target)) {
                         return false;
                     }
 
-                    if (this.continueAggroTargetConditions.test(getServerLevel(this.mob), this.mob, this.target)) {
+                    if (this.continueAggroTargetConditions.test(getServerLevel(this.voidProwler), this.voidProwler, this.target)) {
                         return true;
                     }
                 }
@@ -264,7 +264,7 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
 
         @Override
         public void tick() {
-            if (this.mob.getTarget() == null) {
+            if (this.voidProwler.getTarget() == null) {
                 super.setTarget(null);
             }
 
@@ -275,10 +275,10 @@ public class VoidProwlerEntity extends Monster implements NeutralMob {
                     super.start();
                 }
             } else {
-                if (this.target != null && !this.mob.isPassenger()) {
-                     if (this.target.distanceToSqr(this.mob) > 256.0
-                            && this.teleportTime++ >= this.adjustedTickDelay(30)
-                            && this.mob.tele(this.target)) {
+                if (this.target != null && !this.voidProwler.isPassenger()) {
+                     if (this.target.distanceToSqr(this.voidProwler) > 256.0
+                            && this.teleportTime++ >= this.adjustedTickDelay(15)
+                            && this.voidProwler.teleportTowardsEntity(this.target)) {
                         this.teleportTime = 0;
                     }
                 }
