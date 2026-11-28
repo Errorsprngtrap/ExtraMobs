@@ -179,13 +179,15 @@ public class VoidProwlerEntity extends Monster {
         private int teleportTime;
 
         public VoidProwlerNearestTargetGoal(VoidProwlerEntity voidProwler, Class<Player> targetType, boolean mustSee) {
-            this.voidProwler = voidProwler;
             super(voidProwler, targetType, mustSee);
+            this.voidProwler = voidProwler;
+
         }
 
         @Override
         public void start() {
             this.teleportTime = 0;
+            super.start();
         }
 
         @Override
@@ -194,7 +196,7 @@ public class VoidProwlerEntity extends Monster {
                 super.setTarget(null);
             } else {
                 if (this.target != null && !this.voidProwler.isPassenger()) {
-                    if (this.target.distanceToSqr(this.voidProwler) > 8
+                    if (this.target.distanceToSqr(this.voidProwler) > 20
                             && this.teleportTime++ >= this.adjustedTickDelay(30)
                             && this.voidProwler.teleportTowardsEntity(this.target)) {
                         this.teleportTime = 0;
